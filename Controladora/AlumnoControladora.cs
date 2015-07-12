@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Data.Entity;
 
 namespace Controladora
 {
@@ -41,11 +43,10 @@ namespace Controladora
             return repository.Find(a => a.AlumnoId == AlumnoId).FirstOrDefault();
         }
 
-        public List<Alumno> ListarAlumnos()
+        public IQueryable<Alumno> ListarAlumnos()
         {
-            return repository.All().ToList();
+            return repository.All().Include("Curso");
         }
-
 
     }
 }

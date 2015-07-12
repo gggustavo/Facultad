@@ -29,42 +29,42 @@ namespace Vista
 
         protected override void OnLoad(EventArgs e)
         {
-            this.cursoBindingSource.DataSource = ctrcurso.ListarCursos();
+            cursoBindingSource.DataSource = ctrcurso.ListCurso().ToList();
             ListarAlumnos();
             base.OnLoad(e);
         }
 
         private void ListarAlumnos()
         {
-            this.alumnoBindingSource.DataSource = ctralumno.ListarAlumnos().Select(a => new
+            alumnoBindingSource.DataSource = ctralumno.ListarAlumnos().Select(a => new
             {
                 AlumnoId = a.AlumnoId,
                 Nombre = a.Nombre,
                 Apellido = a.Apellido,
                 Curso = a.Curso.Nombre
-            });
+            }).ToList();
         }
 
         private void Aceptar_Click(object sender, EventArgs e)
         {
             if (alumno != null)
             {
-                alumno.Nombre = this.nombre.Text;
-                alumno.Apellido = this.apellido.Text;
-                alumno.CursoId = ((Curso)this.cursoBindingSource.Current).CursoId;
+                alumno.Nombre = nombre.Text;
+                alumno.Apellido = apellido.Text;
+                alumno.CursoId = ((Curso)cursoBindingSource.Current).CursoId;
                 ctralumno.ModificarAlumno(alumno);
                 ListarAlumnos();
                 alumno = null;
             }
             else
             {
-                if (this.cursoBindingSource.Current != null && !string.IsNullOrEmpty(this.nombre.Text) && !string.IsNullOrEmpty(this.apellido.Text))
+                if (cursoBindingSource.Current != null && !string.IsNullOrEmpty(nombre.Text) && !string.IsNullOrEmpty(apellido.Text))
                 {
                     ctralumno.AgregarAlumno(new Alumno()
                     {
-                        Nombre = this.nombre.Text,
-                        Apellido = this.apellido.Text,
-                        CursoId = ((Curso)this.cursoBindingSource.Current).CursoId
+                        Nombre = nombre.Text,
+                        Apellido = apellido.Text,
+                        CursoId = ((Curso)cursoBindingSource.Current).CursoId
                     });
                     ListarAlumnos();
                 }
@@ -75,29 +75,28 @@ namespace Vista
 
         private void eliminar_Click(object sender, EventArgs e)
         {
-            if (this.alumnoBindingSource.Current != null)
+            if (alumnoBindingSource.Current != null)
             {
-                dynamic valuedelete = (this.alumnoBindingSource.Current);
-                int alumnoId = valuedelete.AlumnoId;
-                ctralumno.EliminarAlumno(alumnoId);
+                var valuedelete = (alumnoBindingSource.Current) as dynamic;
+                var id = valuedelete.AlumnoId;
+                ctralumno.EliminarAlumno(id);
                 ListarAlumnos();
             }
         }
 
         private void modificar_Click(object sender, EventArgs e)
         {
-            if (this.alumnoBindingSource.Current != null)
+            if (alumnoBindingSource.Current != null)
             {
-
-                dynamic valueModificar = (this.alumnoBindingSource.Current);
+                var valueModificar = (alumnoBindingSource.Current) as dynamic;
 
                 alumno = ctralumno.ObtenerAlumno(valueModificar.AlumnoId);
 
-                this.nombre.Text = valueModificar.Nombre;
-                this.apellido.Text = valueModificar.Apellido;
+                nombre.Text = valueModificar.Nombre;
+                apellido.Text = valueModificar.Apellido;
 
-                var item = this.cursoBindingSource.List.OfType<Curso>().ToList().Find(c => c.Nombre == valueModificar.Curso);
-                this.cursoBindingSource.Position = this.cursoBindingSource.IndexOf(item);
+                var item = cursoBindingSource.List.OfType<Curso>().Where(_ => _.Nombre == valueModificar.Curso).First();
+                cursoBindingSource.Position = cursoBindingSource.IndexOf(item);
             }
         }
     }

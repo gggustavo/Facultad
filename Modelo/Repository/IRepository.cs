@@ -14,6 +14,6 @@ namespace Modelo.Repository
         void Update(T entity);
         void Commit();
         IQueryable<T> All();
-        IEnumerable<T> Find(Func<T, bool> predicate);
+        IQueryable<T> Find(Func<T, bool> predicate);
     }
 }

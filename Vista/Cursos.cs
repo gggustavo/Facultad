@@ -24,16 +24,16 @@ namespace Vista
 
         protected override void OnLoad(EventArgs e)
         {
-            cursoBindingSource.DataSource = ctrcurso.ListarCursos();
+            cursoBindingSource.DataSource = ctrcurso.ListCurso().ToList();
             base.OnLoad(e);
         }
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.nombre.Text))
+            if (!string.IsNullOrEmpty(nombre.Text))
             {
-                ctrcurso.AgregarCurso(new Curso() { Nombre = this.nombre.Text });
-                cursoBindingSource.DataSource = ctrcurso.ListarCursos();
+                ctrcurso.AgregarCurso(new Curso() { Nombre = nombre.Text });
+                cursoBindingSource.DataSource = ctrcurso.ListCurso().ToList();
             }
         }
 
@@ -41,7 +41,7 @@ namespace Vista
         {
             if (cursoBindingSource.Current != null)
             {
-                Curso cursoDelete = ctrcurso.ListarCursos().Where(c => c.CursoId == ((Curso)cursoBindingSource.Current).CursoId).FirstOrDefault();
+                Curso cursoDelete = ctrcurso.ListCurso().Where(c => c.CursoId == ((Curso)cursoBindingSource.Current).CursoId).FirstOrDefault();
 
                 if (cursoDelete.Alumno.Any())
                 {
@@ -50,7 +50,7 @@ namespace Vista
                 }
 
                 ctrcurso.EliminarCurso(cursoDelete);
-                cursoBindingSource.DataSource = ctrcurso.ListarCursos();
+                cursoBindingSource.DataSource = ctrcurso.ListCurso();
             }
         }
     }

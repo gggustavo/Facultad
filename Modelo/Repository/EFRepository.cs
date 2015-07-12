@@ -46,9 +46,9 @@ namespace Modelo.Repository
             return DbSet.AsQueryable<T>();
         }
 
-        public IEnumerable<T> Find(Func<T, bool> predicate)
+        public IQueryable<T> Find(Func<T, bool> predicate)
         {
-            return DbSet.Where(predicate).AsEnumerable();
+            return DbSet.Where(predicate).AsQueryable();
         }
 
         public void Commit()

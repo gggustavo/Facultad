@@ -3,6 +3,7 @@ using Modelo.Model;
 using Modelo.Repository;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,9 +31,9 @@ namespace Controladora
             repository.Commit();
         }
 
-        public List<Curso> ListarCursos()
+        public IQueryable<Curso> ListCurso()
         {
-            return repository.All().ToList();
+            return repository.All();
         }
 
     }

@@ -12,7 +12,7 @@ namespace Modelo
 
         public UaiFacultadContext()
         {
-            this.Configuration.LazyLoadingEnabled = true;
+        
 
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace Modelo
             base.OnModelCreating(modelBuilder);
 
             //One-to-Many relationship
-           // modelBuilder.Entity<Curso>().HasMany<Alumno>(a => a.Alumno).WithRequired();
+            // modelBuilder.Entity<Curso>().HasMany<Alumno>(a => a.Alumno).WithRequired();
         }
     }
 }
