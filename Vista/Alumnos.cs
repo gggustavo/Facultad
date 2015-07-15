@@ -1,20 +1,14 @@
-﻿using Controladora;
-using Modelo.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Vista
+﻿namespace Vista
 {
+    using Controladora;
+    using Modelo.Model;
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Windows.Forms;
+
     public partial class Alumnos : Form
     {
-
         AlumnoControladora ctralumno;
         CursoControladora ctrcurso;
         Alumno alumno =null;
@@ -26,10 +20,9 @@ namespace Vista
             ctrcurso = new CursoControladora();
         }
 
-
         protected override void OnLoad(EventArgs e)
         {
-            cursoBindingSource.DataSource = ctrcurso.ListCurso().ToList();
+            cursoBindingSource.DataSource = ctrcurso.ListarCursos().ToList();
             ListarAlumnos();
             base.OnLoad(e);
         }

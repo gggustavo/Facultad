@@ -1,16 +1,12 @@
-﻿using Modelo;
-using Modelo.Model;
-using Modelo.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
-using System.Data.Entity;
-
-namespace Controladora
+﻿namespace Controladora
 {
+    using Modelo;
+    using Modelo.Model;
+    using Modelo.Repository;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Data.Entity;
+
     public class AlumnoControladora
     {
         IRepository<Alumno> repository;
@@ -43,9 +39,9 @@ namespace Controladora
             return repository.Find(a => a.AlumnoId == AlumnoId).FirstOrDefault();
         }
 
-        public IQueryable<Alumno> ListarAlumnos()
+        public IEnumerable<Alumno> ListarAlumnos()
         {
-            return repository.All().Include("Curso");
+            return repository.Fetch().Include("Curso");
         }
 
     }

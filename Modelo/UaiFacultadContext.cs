@@ -1,10 +1,8 @@
-﻿using Modelo.Model;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-
-namespace Modelo
+﻿namespace Modelo
 {
+    using Modelo.Model;
+    using System.Data.Entity;
+
     public class UaiFacultadContext : DbContext
     {
         public DbSet<Curso> Cursos { get; set; }
@@ -12,11 +10,13 @@ namespace Modelo
 
         public UaiFacultadContext()
         {
-        
-
         }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+
             base.OnModelCreating(modelBuilder);
 
             //One-to-Many relationship

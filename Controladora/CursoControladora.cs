@@ -1,15 +1,10 @@
-﻿using Modelo;
-using Modelo.Model;
-using Modelo.Repository;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Controladora
+﻿namespace Controladora
 {
+    using Modelo;
+    using Modelo.Model;
+    using Modelo.Repository;
+    using System.Collections.Generic;
+
     public class CursoControladora
     {
         IRepository<Curso> repository;
@@ -31,9 +26,12 @@ namespace Controladora
             repository.Commit();
         }
 
-        public IQueryable<Curso> ListCurso()
+        public IEnumerable<Curso> ListarCursos()
         {
-            return repository.All();
+            foreach (var item in repository.GetAll())
+            {
+                yield return item;
+            }
         }
 
     }

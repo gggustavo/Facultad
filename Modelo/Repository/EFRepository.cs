@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Modelo.Repository
+﻿namespace Modelo.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
     public class EFRepository<T>: IRepository<T> where T : class
     {
         protected DbContext Context { get; set; }
@@ -56,7 +54,14 @@ namespace Modelo.Repository
             Context.SaveChanges();
         }
 
+        public IQueryable<T> Fetch()
+        {
+            return DbSet.AsQueryable<T>();
+        }
 
-     
+        public IEnumerable<T> GetAll()
+        {
+            return DbSet.AsEnumerable<T>();
+        }
     }
 }

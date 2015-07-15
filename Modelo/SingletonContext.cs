@@ -1,16 +1,10 @@
-﻿using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Modelo
+﻿namespace Modelo
 {
+    using SimpleInjector;
+    using System.Data.Entity;
+
     public class SingletonContext
     {
-
         private static Container Container = null;
 
         public static void CreateInstance()

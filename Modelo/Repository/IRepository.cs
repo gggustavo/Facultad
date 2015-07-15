@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Modelo.Repository
+﻿namespace Modelo.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public interface IRepository<T> where T : class
     {
         void Add(T entity);
@@ -13,7 +11,8 @@ namespace Modelo.Repository
         void Delete(int Id);
         void Update(T entity);
         void Commit();
-        IQueryable<T> All();
+        IQueryable<T> Fetch();
+        IEnumerable<T> GetAll();
         IQueryable<T> Find(Func<T, bool> predicate);
     }
 }

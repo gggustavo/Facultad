@@ -1,20 +1,14 @@
-﻿using Controladora;
-using Modelo.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Vista
+﻿namespace Vista
 {
+    using Controladora;
+    using Modelo.Model;
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Windows.Forms;
+
     public partial class Cursos : Form
     {
-
         CursoControladora ctrcurso;
         public Cursos()
         {
@@ -24,7 +18,7 @@ namespace Vista
 
         protected override void OnLoad(EventArgs e)
         {
-            cursoBindingSource.DataSource = ctrcurso.ListCurso().ToList();
+            cursoBindingSource.DataSource = ctrcurso.ListarCursos().GetEnumerator();
             base.OnLoad(e);
         }
 
@@ -33,7 +27,7 @@ namespace Vista
             if (!string.IsNullOrEmpty(nombre.Text))
             {
                 ctrcurso.AgregarCurso(new Curso() { Nombre = nombre.Text });
-                cursoBindingSource.DataSource = ctrcurso.ListCurso().ToList();
+                cursoBindingSource.DataSource = ctrcurso.ListarCursos().GetEnumerator();
             }
         }
 
@@ -41,7 +35,9 @@ namespace Vista
         {
             if (cursoBindingSource.Current != null)
             {
-                Curso cursoDelete = ctrcurso.ListCurso().Where(c => c.CursoId == ((Curso)cursoBindingSource.Current).CursoId).FirstOrDefault();
+                var cursoId = ((Curso)cursoBindingSource.Current).CursoId;
+                var cursoDelete = ctrcurso.ListarCursos()
+                                        .Where(_ => _.CursoId == cursoId).First();
 
                 if (cursoDelete.Alumno.Any())
                 {
@@ -50,7 +46,7 @@ namespace Vista
                 }
 
                 ctrcurso.EliminarCurso(cursoDelete);
-                cursoBindingSource.DataSource = ctrcurso.ListCurso();
+                cursoBindingSource.DataSource = ctrcurso.ListarCursos().GetEnumerator();
             }
         }
     }
