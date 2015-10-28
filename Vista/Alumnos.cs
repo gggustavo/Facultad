@@ -16,8 +16,9 @@
         public Alumnos()
         {
             InitializeComponent();
-            ctralumno = new AlumnoControladora();
-            ctrcurso = new CursoControladora();
+            var logic = new Business.Logic();
+            ctralumno = new AlumnoControladora(logic);
+            ctrcurso = new CursoControladora(logic);
         }
 
         protected override void OnLoad(EventArgs e)

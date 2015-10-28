@@ -13,7 +13,7 @@
         public Cursos()
         {
             InitializeComponent();
-            ctrcurso = new CursoControladora();
+            ctrcurso = new CursoControladora(new Business.Logic());
         }
 
         protected override void OnLoad(EventArgs e)

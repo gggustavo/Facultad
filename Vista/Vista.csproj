@@ -109,6 +109,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{d2ccc617-3e5a-45b4-ac38-f994c4e2ceff}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Controladora\Controladora.csproj">
       <Project>{fd2902eb-c2de-4802-b97d-277c8c7c9bf4}</Project>
       <Name>Controladora</Name>

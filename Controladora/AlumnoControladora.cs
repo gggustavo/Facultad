@@ -8,12 +8,12 @@
     using System.Data.Entity;
 
     public class AlumnoControladora
-    {
+    { 
         IRepository<Alumno> repository;
 
-        public AlumnoControladora()
+        public AlumnoControladora(Business.ILogic T)
         {
-            this.repository = SingletonContext.GetContainer().GetInstance<IRepository<Alumno>>();
+            repository = T.GetRepositoryAlumno();
         }
 
         public void AgregarAlumno(Alumno entity)

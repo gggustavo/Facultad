@@ -9,9 +9,9 @@
     {
         IRepository<Curso> repository;
 
-        public CursoControladora()
+        public CursoControladora(Business.ILogic T)
         {
-            repository = SingletonContext.GetContainer().GetInstance<IRepository<Curso>>();
+            repository = T.GetRepositoryCurso();
         }
 
         public void AgregarCurso(Curso entity)
